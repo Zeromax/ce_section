@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.1">
+  <file datatype="php" original="system/modules/ce_section/languages/en/modules.php" source-language="en">
+    <body>
+      <trans-unit id="MOD.ce_section.0">
+        <source>Layout Section Settings</source>
+      </trans-unit>
+      <trans-unit id="MOD.ce_section.1">
+        <source>Manage content elements and Layout sections</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
