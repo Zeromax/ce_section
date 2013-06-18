@@ -95,7 +95,7 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(),
-		'default'                     => '{name_legend},section,contentElement',
+		'default'                     => 'section,contentElement',
 	),
 
 	// Fields
