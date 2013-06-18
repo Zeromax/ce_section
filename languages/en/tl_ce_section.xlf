@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.1">
+  <file datatype="php" original="system/modules/core/languages/en/tl_ce_section.php" source-language="en">
+    <body>
+	  <trans-unit id="tl_ce_section.section.0">
+        <source>Layout section</source>
+      </trans-unit>
+      <trans-unit id="tl_ce_section.section.1">
+        <source>Please choose the layout section you want the content elements to be limited in.</source>
+      </trans-unit>
+	  <trans-unit id="tl_ce_section.contentElement.0">
+        <source>Content elements</source>
+      </trans-unit>
+      <trans-unit id="tl_ce_section.contentElement.1">
+        <source>Please choose the Content elements you want to use.</source>
+      </trans-unit>
+	  <trans-unit id="tl_ce_section.core">
+        <source>Core Layout Section</source>
+      </trans-unit>
+	  <trans-unit id="tl_ce_section.custom">
+        <source>Custom Layout Section</source>
+      </trans-unit>
+      <trans-unit id="tl_ce_section.header">
+        <source>Header</source>
+      </trans-unit>
+      <trans-unit id="tl_ce_section.left">
+        <source>Left column</source>
+      </trans-unit>
+      <trans-unit id="tl_ce_section.main">
+        <source>Main column</source>
+      </trans-unit>
+      <trans-unit id="tl_ce_section.right">
+        <source>Right column</source>
+      </trans-unit>
+      <trans-unit id="tl_ce_section.footer">
+        <source>Footer</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

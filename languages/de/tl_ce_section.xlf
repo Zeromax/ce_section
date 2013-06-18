@@ -1,0 +1,50 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="system/modules/core/languages/en/tl_ce_section.php" source-language="en">
+    <body>
+	  <trans-unit id="tl_ce_section.section.0">
+        <source>Layout section</source>
+        <target>Layoutbereich</target>
+      </trans-unit>
+      <trans-unit id="tl_ce_section.section.1">
+        <source>Please choose the layout section you want the content elements to be limited in.</source>
+        <target>Bitte wählen Sie den Layoutbereich, in dem welchem die Inhaltselemente limitiert werden sollen.</target>
+      </trans-unit>
+	  <trans-unit id="tl_ce_section.contentElement.0">
+        <source>Content elements</source>
+        <target>Inhalteselemente</target>
+      </trans-unit>
+      <trans-unit id="tl_ce_section.contentElement.1">
+        <source>Please choose the content elements you want to use.</source>
+        <target>Bitte wählen sie die Inhaltselemente welche si verwenden wollen.</target>
+      </trans-unit>
+	  <trans-unit id="tl_ce_section.core">
+        <source>Core Layout Sections</source>
+		<target>Core Layout Bereiche</target>
+      </trans-unit>
+	  <trans-unit id="tl_ce_section.custom">
+        <source>Custom Layout Sections</source>
+		<target>Eigene Layout Bereiche</target>
+      </trans-unit>
+      <trans-unit id="tl_ce_section.header">
+        <source>Header</source>
+        <target>Kopfzeile</target>
+      </trans-unit>
+      <trans-unit id="tl_ce_section.left">
+        <source>Left column</source>
+        <target>Linke Spalte</target>
+      </trans-unit>
+      <trans-unit id="tl_ce_section.main">
+        <source>Main column</source>
+        <target>Hauptspalte</target>
+      </trans-unit>
+      <trans-unit id="tl_ce_section.right">
+        <source>Right column</source>
+        <target>Rechte Spalte</target>
+      </trans-unit>
+      <trans-unit id="tl_ce_section.footer">
+        <source>Footer</source>
+        <target>Fußzeile</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
