@@ -42,9 +42,7 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 		),
 		'label' => array
 		(
-			'fields'                  => array('section'),
-			'showColumns'             => true
-			//'label_callback'          => array('tl_ce_section', 'addIcon')
+			'fields'                  => array('section')
 		),
 		'global_operations' => array
 		(
