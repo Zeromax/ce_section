@@ -65,7 +65,7 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 			'copy' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_ce_section']['copy'],
-				'href'                => 'act=paste&amp;mode=copy',
+				'href'                => 'act=copy',
 				'icon'                => 'copy.gif',
 				'attributes'          => 'onclick="Backend.getScrollOffset()"'
 			),
@@ -113,7 +113,6 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 		'section' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_ce_section']['section'],
-			'exclude'                 => true,
 			'filter'                  => true,
 			'inputType'               => 'select',
 			'options_callback'        => array('tl_ce_section', 'getSections'),
@@ -133,7 +132,6 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 		'invisible' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_ce_section']['invisible'],
-			'exclude'                 => true,
 			'filter'                  => true,
 			'inputType'               => 'checkbox',
 			'sql'                     => "char(1) NOT NULL default ''"
