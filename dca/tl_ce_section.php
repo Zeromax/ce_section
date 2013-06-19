@@ -5,7 +5,7 @@
  *
  * Copyright (C) 2013 Andreas Nölke
  *
- * @package   stollvongati_2013
+ * @package   ce_section
  * @author    Andreas Nölke
  * @copyright Andreas Nölke 2013
  */
@@ -102,14 +102,6 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 	// Fields
 	'fields' => array
 	(
-		'id' => array
-		(
-			'sql'                     => "int(10) unsigned NOT NULL auto_increment"
-		),
-		'tstamp' => array
-		(
-			'sql'                     => "int(10) unsigned NOT NULL default '0'"
-		),
 		'section' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_ce_section']['section'],
@@ -117,8 +109,7 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 			'inputType'               => 'select',
 			'options_callback'        => array('tl_ce_section', 'getSections'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_ce_section'],
-			'eval'					  => array('unique'=>true, 'chosen'=>true),
-			'sql'                     => "varchar(50) NOT NULL default ''"
+			'eval'					  => array('unique'=>true, 'chosen'=>true)
 		),
 		'contentElement' => array
 		(
@@ -126,15 +117,13 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 			'inputType'               => 'checkbox',
 			'options_callback'        => array('tl_ce_section', 'getContentElements'),
 			'reference'               => &$GLOBALS['TL_LANG']['CTE'],
-			'eval'                    => array('multiple'=>true),
-			'sql'                     => "blob NULL"
+			'eval'                    => array('multiple'=>true)
 		),
 		'invisible' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_ce_section']['invisible'],
 			'filter'                  => true,
-			'inputType'               => 'checkbox',
-			'sql'                     => "char(1) NOT NULL default ''"
+			'inputType'               => 'checkbox'
 		)
 	)
 );
@@ -169,9 +158,24 @@ class tl_ce_section extends Backend
 	 */
 	public function toggleIcon($row, $href, $label, $title, $icon, $attributes)
 	{
-		if (strlen(Input::get('tid')))
+		$tid = "";
+		$state = "";
+		$id = "";
+		if (version_compare(VERSION, '2.11', '>'))
 		{
-			$this->toggleVisibility(Input::get('tid'), (Input::get('state') == 1));
+			$tid = Input::get('tid');
+			$state = Input::get('state');
+			$id = Input::get('id');
+		}
+		else
+		{
+			$tid = $this->Input->get('tid');
+			$state = $this->Input->get('state');
+			$id = $this->Input->get('id');
+		}
+		if (strlen($tid))
+		{
+			$this->toggleVisibility($tid, ($state == 1));
 			$this->redirect($this->getReferer());
 		}
 
@@ -181,14 +185,22 @@ class tl_ce_section extends Backend
 			return '';
 		}
 
-		$href .= '&amp;id='.Input::get('id').'&amp;tid='.$row['id'].'&amp;state='.$row['invisible'];
+		$href .= '&amp;id='.$id.'&amp;tid='.$row['id'].'&amp;state='.$row['invisible'];
 
 		if ($row['invisible'])
 		{
 			$icon = 'invisible.gif';
 		}
-
-		return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.Image::getHtml($icon, $label).'</a> ';
+		$image = "";
+		if (version_compare(VERSION, '3.1', '>='))
+		{
+			$image = Image::getHtml($icon, $label);
+		}
+		else
+		{
+			$image = $this->generateImage($icon, $label);
+		}
+		return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.$image.'</a> ';
 	}
 
 
@@ -200,8 +212,16 @@ class tl_ce_section extends Backend
 	public function toggleVisibility($intId, $blnVisible)
 	{
 		// Check permissions to edit
-		Input::setGet('id', $intId);
-		Input::setGet('act', 'toggle');
+		if (version_compare(VERSION, '2.11', '>'))
+		{
+			Input::setGet('id', $intId);
+			Input::setGet('act', 'toggle');
+		}
+		else
+		{
+			$this->Input->setGet('id', $intId);
+			$this->Input->setGet('act', 'toggle');
+		}
 
 		// The onload_callbacks vary depending on the dynamic parent table (see #4894)
 		if (is_array($GLOBALS['TL_DCA']['tl_ce_section']['config']['onload_callback']))
@@ -223,8 +243,15 @@ class tl_ce_section extends Backend
 			$this->redirect('contao/main.php?act=error');
 		}
 
-		$objVersions = new Versions('tl_ce_section', $intId);
-		$objVersions->initialize();
+		if (version_compare(VERSION, '3.1', '>='))
+		{
+			$objVersions = new Versions('tl_ce_section', $intId);
+			$objVersions->initialize();
+		}
+		else
+		{
+			$this->createInitialVersion('tl_ce_section', $intId);
+		}
 
 		// Trigger the save_callback
 		if (is_array($GLOBALS['TL_DCA']['tl_ce_section']['fields']['invisible']['save_callback']))
@@ -240,8 +267,16 @@ class tl_ce_section extends Backend
 		$this->Database->prepare("UPDATE tl_ce_section SET tstamp=". time() .", invisible='" . ($blnVisible ? '' : 1) . "' WHERE id=?")
 					   ->execute($intId);
 
-		$objVersions->create();
-		$this->log('A new version of record "tl_ce_section.id='.$intId.'" has been created'.$this->getParentEntries('tl_ce_section', $intId), 'tl_ce_section toggleVisibility()', TL_GENERAL);
+		if (version_compare(VERSION, '3.1', '>='))
+		{
+			$objVersions->create();
+		}
+		else
+		{
+			$this->createNewVersion('tl_content', $intId);
+		}
+
+		$this->log('A new version of record "tl_ce_section.id='.$intId.'" has been created', 'tl_ce_section toggleVisibility()', TL_GENERAL);
 	}
 
 	/**
