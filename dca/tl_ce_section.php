@@ -21,10 +21,6 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 	(
 		'dataContainer'               => 'Table',
 		'enableVersioning'            => true,
-		'onload_callback' => array
-		(
-			array('tl_ce_section', 'checkPermission')
-		),
 		'sql' => array
 		(
 			'keys' => array
@@ -67,6 +63,13 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 				'label'               => &$GLOBALS['TL_LANG']['tl_ce_section']['edit'],
 				'href'                => 'act=edit',
 				'icon'                => 'edit.gif'
+			),
+			'copy' => array
+			(
+				'label'               => &$GLOBALS['TL_LANG']['tl_ce_section']['copy'],
+				'href'                => 'act=paste&amp;mode=copy',
+				'icon'                => 'copy.gif',
+				'attributes'          => 'onclick="Backend.getScrollOffset()"'
 			),
 			'delete' => array
 			(
@@ -156,60 +159,6 @@ class tl_ce_section extends Backend
 	{
 		parent::__construct();
 		$this->import('BackendUser', 'User');
-	}
-
-
-	/**
-	 * Check permissions to edit table tl_ce_section
-	 */
-	public function checkPermission()
-	{
-		if ($this->User->isAdmin)
-		{
-			return;
-		}
-
-		// Check current action
-		switch (Input::get('act'))
-		{
-			case 'create':
-			case 'select':
-			case 'show':
-				// Allow
-				break;
-
-			case 'delete':
-				if (Input::get('id') == $this->User->id)
-				{
-					$this->log('Attempt to delete own account ID "'.Input::get('id').'"', 'tl_ce_section checkPermission', TL_ERROR);
-					$this->redirect('contao/main.php?act=error');
-				}
-				// no break;
-
-			case 'edit':
-			case 'copy':
-			case 'toggle':
-			default:
-				$objUser = $this->Database->prepare("SELECT admin FROM tl_ce_section WHERE id=?")
-										  ->limit(1)
-										  ->execute(Input::get('id'));
-
-				if ($objUser->admin && Input::get('act') != '')
-				{
-					$this->log('Not enough permissions to '.Input::get('act').' administrator account ID "'.Input::get('id').'"', 'tl_ce_section checkPermission', TL_ERROR);
-					$this->redirect('contao/main.php?act=error');
-				}
-				break;
-
-			case 'editAll':
-			case 'deleteAll':
-			case 'overrideAll':
-				$session = $this->Session->getData();
-				$objUser = $this->Database->execute("SELECT id FROM tl_ce_section WHERE admin=1");
-				$session['CURRENT']['IDS'] = array_diff($session['CURRENT']['IDS'], $objUser->fetchEach('id'));
-				$this->Session->setData($session);
-				break;
-		}
 	}
 
 	/**
