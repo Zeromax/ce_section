@@ -127,7 +127,14 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 		)
 	)
 );
-
+if (version_compare(VERSION, '2.11', '>'))
+{
+	$GLOBALS['TL_DCA']['tl_ce_section']['fields']['id']['sql'] = "int(10) unsigned NOT NULL auto_increment";
+	$GLOBALS['TL_DCA']['tl_ce_section']['fields']['tstamp']['sql'] = "int(10) unsigned NOT NULL default '0'";
+	$GLOBALS['TL_DCA']['tl_ce_section']['fields']['section']['sql'] = "varchar(50) NOT NULL default ''";
+	$GLOBALS['TL_DCA']['tl_ce_section']['fields']['contentElement']['sql'] = "blob NULL";
+	$GLOBALS['TL_DCA']['tl_ce_section']['fields']['invisible']['sql'] = "char(1) NOT NULL default ''";
+}
 /**
  * Class tl_ce_section
  *
