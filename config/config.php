@@ -18,7 +18,7 @@ array_insert($GLOBALS['BE_MOD']['system'], array_search('settings',array_keys($G
 (
 	'ce_section' => array
 	(
-		'tables' => array('tl_ce_section', 'tl_ce_section_settings'),
-		'icon'   => 'system/modules/svg_contao/assets/projects.gif',
+		'tables' => array('tl_ce_section'),
+		'icon'   => 'system/modules/ce_section/assets/icon.gif'
 	)
 ));
