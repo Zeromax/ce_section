@@ -95,7 +95,7 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(),
-		'default'                     => 'section,contentElement',
+		'default'                     => 'section,contentElement,invisible',
 	),
 
 	// Fields
@@ -129,6 +129,14 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 			'reference'               => &$GLOBALS['TL_LANG']['CTE'],
 			'eval'                    => array('multiple'=>true),
 			'sql'                     => "blob NULL"
+		),
+		'invisible' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_ce_section']['invisible'],
+			'exclude'                 => true,
+			'filter'                  => true,
+			'inputType'               => 'checkbox',
+			'sql'                     => "char(1) NOT NULL default ''"
 		)
 	)
 );
@@ -226,7 +234,7 @@ class tl_ce_section extends Backend
 		}
 
 		// Check permissions AFTER checking the tid, so hacking attempts are logged
-		if (!$this->User->isAdmin && !$this->User->hasAccess('tl_content::invisible', 'alexf'))
+		if (!$this->User->isAdmin && !$this->User->hasAccess('tl_ce_section::invisible', 'alexf'))
 		{
 			return '';
 		}
@@ -239,6 +247,59 @@ class tl_ce_section extends Backend
 		}
 
 		return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.Image::getHtml($icon, $label).'</a> ';
+	}
+
+
+	/**
+	 * Toggle the visibility of an element
+	 * @param integer
+	 * @param boolean
+	 */
+	public function toggleVisibility($intId, $blnVisible)
+	{
+		// Check permissions to edit
+		Input::setGet('id', $intId);
+		Input::setGet('act', 'toggle');
+
+		// The onload_callbacks vary depending on the dynamic parent table (see #4894)
+		if (is_array($GLOBALS['TL_DCA']['tl_ce_section']['config']['onload_callback']))
+		{
+			foreach ($GLOBALS['TL_DCA']['tl_ce_section']['config']['onload_callback'] as $callback)
+			{
+				if (is_array($callback))
+				{
+					$this->import($callback[0]);
+					$this->$callback[0]->$callback[1]($this);
+				}
+			}
+		}
+
+		// Check permissions to publish
+		if (!$this->User->isAdmin && !$this->User->hasAccess('tl_ce_section::invisible', 'alexf'))
+		{
+			$this->log('Not enough permissions to show/hide content element ID "'.$intId.'"', 'tl_ce_section toggleVisibility', TL_ERROR);
+			$this->redirect('contao/main.php?act=error');
+		}
+
+		$objVersions = new Versions('tl_ce_section', $intId);
+		$objVersions->initialize();
+
+		// Trigger the save_callback
+		if (is_array($GLOBALS['TL_DCA']['tl_ce_section']['fields']['invisible']['save_callback']))
+		{
+			foreach ($GLOBALS['TL_DCA']['tl_ce_section']['fields']['invisible']['save_callback'] as $callback)
+			{
+				$this->import($callback[0]);
+				$blnVisible = $this->$callback[0]->$callback[1]($blnVisible, $this);
+			}
+		}
+
+		// Update the database
+		$this->Database->prepare("UPDATE tl_ce_section SET tstamp=". time() .", invisible='" . ($blnVisible ? '' : 1) . "' WHERE id=?")
+					   ->execute($intId);
+
+		$objVersions->create();
+		$this->log('A new version of record "tl_ce_section.id='.$intId.'" has been created'.$this->getParentEntries('tl_ce_section', $intId), 'tl_ce_section toggleVisibility()', TL_GENERAL);
 	}
 
 	/**

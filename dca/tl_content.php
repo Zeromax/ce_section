@@ -33,7 +33,7 @@ class tl_content_ce_section extends tl_content
 									 ->limit(1)
 									 ->executeUncached($objArticle->inColumn);
 		$cte = unserialize($objSection->contentElement);
-		if (is_array($cte) && count($cte)>0)
+		if (is_array($cte) && count($cte)>0 && $objSection->invisible != 1)
 		{
 			foreach ($GLOBALS['TL_CTE'] as $k => $v)
 			{
