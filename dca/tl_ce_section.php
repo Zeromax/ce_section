@@ -101,7 +101,7 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 			'filter'                  => true,
 			'inputType'               => 'select',
 			'options_callback'        => array('tl_ce_section', 'getSections'),
-			'reference'               => &$GLOBALS['TL_LANG']['tl_ce_section'],
+			'reference'               => &$GLOBALS['TL_LANG']['tl_article'],
 			'eval'					  => array('unique'=>true, 'chosen'=>true)
 		),
 		'contentElement' => array
@@ -137,6 +137,7 @@ class tl_ce_section extends Backend
 	{
 		parent::__construct();
 		$this->import('BackendUser', 'User');
+		\System::loadLanguageFile('tl_article');
 	}
 
 	/**
