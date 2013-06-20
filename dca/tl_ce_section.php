@@ -280,8 +280,8 @@ class tl_ce_section extends Backend
 	public function getSections()
 	{
 		$section = trimsplit(',', $GLOBALS['TL_CONFIG']['customSections']);
-		$arrSection['core'] = array('header', 'left', 'right', 'main', 'footer');
-		$arrSection['custom'] = $section;
+		$arrSection['cesectioncore'] = array('header', 'left', 'right', 'main', 'footer');
+		$arrSection['cesectioncustom'] = $section;
 		return $arrSection;
 	}
 
