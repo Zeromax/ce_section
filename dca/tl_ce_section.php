@@ -103,7 +103,8 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 			'inputType'               => 'select',
 			'options_callback'        => array('tl_ce_section', 'getSections'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_article'],
-			'eval'					  => array('chosen'=>true)
+			'eval'					  => array('chosen'=>true),
+			'save_callback'			  => array(array('tl_ce_section', 'checkUniqueSection'))
 		),
 		'contentElement' => array
 		(
@@ -140,6 +141,27 @@ class tl_ce_section extends Backend
 		$this->import('BackendUser', 'User');
 		\System::loadLanguageFile('tl_article');
 	}
+
+	/**
+	 * Check if Section is already in use
+	 * @param mixed
+	 * @param DataContainer
+	 * @return string
+	 */
+	public function checkUniqueSection($varValue, DataContainer $dc)
+	{
+		$objSection = $this->Database->prepare("SELECT id FROM tl_ce_section WHERE section=? AND pid=?")
+								   ->execute($varValue, $dc->activeRecord->pid);
+
+		// Check whether the page alias exists
+		if ($objSection->numRows > 1)
+		{
+			throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['sectionExists'], $varValue));
+		}
+
+		return $varValue;
+	}
+
 
 	/**
 	 * Return the "toggle visibility" button
