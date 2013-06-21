@@ -56,13 +56,17 @@ class tl_content_ce_section extends tl_content
 			}
 			while ($pid > 0 && $type != 'root');
 
-			$objLayout = $this->Database->prepare("SELECT l.*, t.templates FROM tl_layout l LEFT JOIN tl_theme t ON l.pid=t.id WHERE l.id=? OR l.fallback=1 ORDER BY l.id=? DESC")
-									->limit(1)
-									->execute($objPage->layout, $objPage->layout);
-			echo $objLayout->pid;
+			if (version_compare(VERSION, '2.11', '>'))
+			{
+				$themePid = $this->getThemePidC3($objPage);
+			}
+			else
+			{
+				$themePid = $this->getThemePidC2($objPage);
+			}
 			$objSection = $this->Database->prepare("SELECT * FROM tl_ce_section WHERE section=? AND pid=?")
 										 ->limit(1)
-										 ->executeUncached($objArticle->inColumn,$objLayout->pid);
+										 ->executeUncached($objArticle->inColumn,$themePid);
 			$cte = unserialize($objSection->contentElement);
 			if (is_array($cte) && count($cte)>0 && $objSection->invisible != 1)
 			{
@@ -85,6 +89,39 @@ class tl_content_ce_section extends tl_content
 				$arrFlip = array_flip($arrFirstElement);
 				$GLOBALS['TL_DCA']['tl_content']['fields']['type']['default'] = reset($arrFlip);
 			}
+		}
+	}
+
+	protected function getThemePidC2($objPage)
+	{
+		$objLayout = $this->Database->prepare("SELECT l.*, t.templates FROM tl_layout l LEFT JOIN tl_theme t ON l.pid=t.id WHERE l.id=? OR l.fallback=1 ORDER BY l.id=? DESC")
+									->limit(1)
+									->execute($objPage->layout, $objPage->layout);
+		if($objLayout === null)
+		{
+			return 0;
+		}
+		else
+		{
+			return $objLayout->pid;
+		}
+	}
+	/**
+	 * Get a page layout and return it as database result object
+	 * @param \Model
+	 * @return \Model
+	 */
+	protected function getThemePidC3($objPage)
+	{
+		$objLayout = \LayoutModel::findByPk($objPage->layout);
+
+		if($objLayout === null)
+		{
+			return 0;
+		}
+		else
+		{
+			return $objLayout->pid;
 		}
 	}
 }
