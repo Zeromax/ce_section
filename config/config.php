@@ -14,11 +14,4 @@
  * Backend Modules
  */
 
-array_insert($GLOBALS['BE_MOD']['system'], array_search('settings',array_keys($GLOBALS['BE_MOD']['system']))+1, array
-(
-	'ce_section' => array
-	(
-		'tables' => array('tl_ce_section'),
-		'icon'   => 'system/modules/ce_section/assets/icon.gif'
-	)
-));
+$GLOBALS['BE_MOD']['design']['themes']['tables'][] = "tl_ce_section";
