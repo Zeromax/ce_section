@@ -13,8 +13,10 @@
 
 $GLOBALS['TL_LANG']['tl_ce_section']['section'][0] = "Layout section";
 $GLOBALS['TL_LANG']['tl_ce_section']['section'][1] = "Please choose the layout section you want the content elements to be limited in.";
-$GLOBALS['TL_LANG']['tl_ce_section']['contentElement'][0]= "Content elements";
+$GLOBALS['TL_LANG']['tl_ce_section']['contentElement'][0] = "Content elements";
 $GLOBALS['TL_LANG']['tl_ce_section']['contentElement'][1] = "Please choose the content elements you want to use.";
+$GLOBALS['TL_LANG']['tl_ce_section']['articleTpl'][0] = "Article Template";
+$GLOBALS['TL_LANG']['tl_ce_section']['articleTpl'][0] = "Here you can select the article (article_) template.";
 $GLOBALS['TL_LANG']['tl_ce_section']['invisible'][0]= "Ignore";
 $GLOBALS['TL_LANG']['tl_ce_section']['invisible'][1] = "Ignore the element.";
 $GLOBALS['TL_LANG']['tl_ce_section']['edit'][0] = "Edit Section";

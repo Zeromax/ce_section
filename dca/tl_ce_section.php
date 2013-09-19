@@ -90,7 +90,7 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(),
-		'default'                     => '{legend_layout},section;{legend_elements},contentElement;{legend_settings},invisible',
+		'default'                     => '{legend_layout},section;{legend_elements},contentElement;{legend_settings},articleTpl,invisible',
 	),
 
 	// Fields
@@ -113,6 +113,14 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 			'options_callback'        => array('tl_ce_section', 'getContentElements'),
 			'reference'               => &$GLOBALS['TL_LANG']['CTE'],
 			'eval'                    => array('multiple'=>true)
+		),
+		'articleTpl' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_ce_section']['articleTpl'],
+			'exclude'                 => true,
+			'inputType'               => 'select',
+			'options_callback'        => array('tl_ce_section', 'getArticleTemplates'),
+			'sql'                     => "varchar(64) NOT NULL default ''"
 		),
 		'invisible' => array
 		(
@@ -325,5 +333,15 @@ class tl_ce_section extends Backend
 		}
 
 		return $groups;
+	}
+
+	/**
+	 * Return all article templates as array
+	 * @return array
+	 */
+	public function getArticleTemplates()
+	{
+		$arrTemplates['mod_article'] = 'mod_article';
+		return array_merge($arrTemplates,$this->getTemplateGroup('article_'));
 	}
 }
