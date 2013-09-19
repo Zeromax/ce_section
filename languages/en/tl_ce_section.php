@@ -31,3 +31,6 @@ $GLOBALS['TL_LANG']['tl_ce_section']['show'][0] = "Section details";
 $GLOBALS['TL_LANG']['tl_ce_section']['show'][1] = "Show the details of Section ID %s";
 $GLOBALS['TL_LANG']['tl_ce_section']['new'][0] = "New Section";
 $GLOBALS['TL_LANG']['tl_ce_section']['new'][1] = "Create a new Section";
+$GLOBALS['TL_LANG']['tl_ce_section']['legend_layout'] = "Layout";
+$GLOBALS['TL_LANG']['tl_ce_section']['legend_elements'] = "Content ELements";
+$GLOBALS['TL_LANG']['tl_ce_section']['legend_settings'] = "Settings";

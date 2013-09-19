@@ -90,7 +90,7 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(),
-		'default'                     => 'section,contentElement,invisible',
+		'default'                     => '{legend_layout},section;{legend_elements},contentElement;{legend_settings},invisible',
 	),
 
 	// Fields

@@ -31,3 +31,6 @@ $GLOBALS['TL_LANG']['tl_ce_section']['show'][0] = "Layoutbereich Details";
 $GLOBALS['TL_LANG']['tl_ce_section']['show'][1] = "Zeige die Deitails vom Layoutbereich ID %s";
 $GLOBALS['TL_LANG']['tl_ce_section']['new'][0] = "Neuer Layoutbereich";
 $GLOBALS['TL_LANG']['tl_ce_section']['new'][1] = "Erstelle einen neuen Layoutbereich";
+$GLOBALS['TL_LANG']['tl_ce_section']['legend_layout'] = "Layout";
+$GLOBALS['TL_LANG']['tl_ce_section']['legend_elements'] = "Inhalteselemente";
+$GLOBALS['TL_LANG']['tl_ce_section']['legend_settings'] = "Einstellungen";
