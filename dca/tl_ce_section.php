@@ -310,9 +310,34 @@ class tl_ce_section extends Backend
 	 */
 	public function getSections()
 	{
-		$section = trimsplit(',', $GLOBALS['TL_CONFIG']['customSections']);
 		$arrSection['cesectioncore'] = array('header', 'left', 'right', 'main', 'footer');
-		$arrSection['cesectioncustom'] = $section;
+
+		if (version_compare(VERSION, '3.2', '>='))
+		{
+			$objLayout = \LayoutModel::findAll();
+			if($objLayout != null)
+			{
+				$arrCustom = array();
+				while ($objLayout->next())
+				{
+					$arrCustom = array_merge($arrCustom , trimsplit(',', $objLayout->sections));
+				}
+			}
+			$arrCustom = array_unique($arrCustom);
+			asort($arrCustom);
+			foreach($arrCustom as $section)
+			{
+				$arrSection['cesectioncustom'][$section] = $section;
+			}
+		}
+		if (version_compare(VERSION, '3.2', '<'))
+		{
+			if ($GLOBALS['TL_CONFIG']['customSections'] != "")
+			{
+				$section = trimsplit(',', $GLOBALS['TL_CONFIG']['customSections']);
+				$arrSection['cesectioncustom'] = $section;
+			}
+		}
 		return $arrSection;
 	}
 
