@@ -13,7 +13,7 @@
 
 $GLOBALS['TL_LANG']['tl_ce_section']['section'][0] = "Layoutbereich";
 $GLOBALS['TL_LANG']['tl_ce_section']['section'][1] = "Bitte wählen Sie den Layoutbereich, in welchem die Inhaltselemente limitiert werden sollen.";
-$GLOBALS['TL_LANG']['tl_ce_section']['contentElement'][0] = "Inhalteselemente";
+$GLOBALS['TL_LANG']['tl_ce_section']['contentElement'][0] = "Inhaltselemente";
 $GLOBALS['TL_LANG']['tl_ce_section']['contentElement'][1] = "Bitte wählen Sie die Inhaltselemente, welche Sie verwenden wollen.";
 $GLOBALS['TL_LANG']['tl_ce_section']['articleTpl'][0] = "Artikel Template";
 $GLOBALS['TL_LANG']['tl_ce_section']['articleTpl'][0] = "Hier können Sie das Artikel Template auswählen.";
@@ -34,5 +34,5 @@ $GLOBALS['TL_LANG']['tl_ce_section']['show'][1] = "Zeige die Deitails vom Layout
 $GLOBALS['TL_LANG']['tl_ce_section']['new'][0] = "Neuer Layoutbereich";
 $GLOBALS['TL_LANG']['tl_ce_section']['new'][1] = "Erstelle einen neuen Layoutbereich";
 $GLOBALS['TL_LANG']['tl_ce_section']['legend_layout'] = "Layout";
-$GLOBALS['TL_LANG']['tl_ce_section']['legend_elements'] = "Inhalteselemente";
+$GLOBALS['TL_LANG']['tl_ce_section']['legend_elements'] = "Inhaltselemente";
 $GLOBALS['TL_LANG']['tl_ce_section']['legend_settings'] = "Einstellungen";
