@@ -1,0 +1,38 @@
+{
+	"name":"zeromax/contao-ce-section",
+	"description":"The allowed content elements can be defined for each layout area",
+	"keywords":["Content element","theme","layout"],
+	"type":"contao-module",
+	"homepage":"http://www.brothers-project.de",
+	"license":"LGPL-3.0+",
+	"authors":[
+		{
+			"name":"Andreas Nölke",
+			"email":"zero@brothers-project.de",
+			"homepage":"http://www.brothers-project.de",
+			"role":"Developer"
+		}
+	],
+	"support":{
+		"email":"zero@brothers-project.de",
+		"issues":"https://github.com/Zeromax/ce_section/issues",
+		"source":"https://github.com/Zeromax/ce_section"
+	},
+	"require":{
+		"php":">=5.3",
+		"contao/core":">=3.2,<4.0"
+	},
+	"replace":{
+		"contao-legacy/ce_section":"*"
+	},
+	"extra":{
+		"contao": {
+			"sources":{
+				"": "system/modules/ce_section"
+			}
+		},
+		"branch-alias":{
+			"master":"2.0.x-dev"
+		}
+	}
+}
