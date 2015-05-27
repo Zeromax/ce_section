@@ -28,7 +28,9 @@ class ModuleArticle extends \Contao\ModuleArticle
 {
 	/**
 	 * Check whether the article is published
-	 * @param boolean
+	 *
+	 * @param $blnNoMarkup boolean
+	 *
 	 * @return string
 	 */
 	public function generate($blnNoMarkup=false)
@@ -39,12 +41,9 @@ class ModuleArticle extends \Contao\ModuleArticle
 												. "AND invisible=0")
 									 ->execute($this->inColumn, $objPage->layout);
 
-		if ($objSection->numRows > 0)
+		if ($objSection->numRows > 0 && $objSection->articleTpl != "")
 		{
-			if($objSection->articleTpl != "")
-			{
-				$this->strTemplate = $objSection->articleTpl;
-			}
+			$this->strTemplate = $objSection->articleTpl;
 		}
 
 		return parent::generate($blnNoMarkup);
