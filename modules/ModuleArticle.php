@@ -33,8 +33,12 @@ class ModuleArticle extends \Contao\ModuleArticle
 	 */
 	public function generate($blnNoMarkup=false)
 	{
-		$objSection = $this->Database->prepare("SELECT articleTpl FROM tl_ce_section WHERE section=?")
-									 ->execute($this->inColumn);
+		global $objPage;
+		$objSection = $this->Database->prepare("SELECT articleTpl FROM tl_ce_section WHERE section=?"
+												. "AND pid=(SELECT pid FROM tl_layout WHERE id=?)"
+												. "AND invisible=0")
+									 ->execute($this->inColumn, $objPage->layout);
+
 		if ($objSection->numRows > 0)
 		{
 			if($objSection->articleTpl != "")
