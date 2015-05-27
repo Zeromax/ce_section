@@ -3,11 +3,12 @@
 /**
  * ce_section
  *
- * Copyright (C) 2013 Andreas Nölke
+ * Copyright (C) 2013-2015 Andreas Nölke
  *
  * @package   ce_section
  * @author    Andreas Nölke
- * @copyright Andreas Nölke 2013
+ * @copyright Andreas Nölke
+ * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
 /**
@@ -136,7 +137,7 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
  *
  * @package   tl_ce_section
  * @author    Andreas Nölke
- * @copyright Andreas Nölke 2013
+ * @copyright Andreas Nölke
  */
 class tl_ce_section extends Backend
 {

@@ -3,11 +3,12 @@
 /**
  * ce_section
  *
- * Copyright (C) 2013 Andreas Nölke
+ * Copyright (C) 2013-2015 Andreas Nölke
  *
  * @package   ce_section
  * @author    Andreas Nölke
- * @copyright Andreas Nölke 2013
+ * @copyright Andreas Nölke
+ * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
 $GLOBALS['TL_DCA']['tl_content']['config']['onload_callback'][] = array('tl_content_ce_section', 'loadCallback');
@@ -17,7 +18,7 @@ $GLOBALS['TL_DCA']['tl_content']['config']['onload_callback'][] = array('tl_cont
  *
  * @package   ce_section
  * @author    Andreas Nölke
- * @copyright Andreas Nölke 2013
+ * @copyright Andreas Nölke
  */
 class tl_content_ce_section extends tl_content
 {

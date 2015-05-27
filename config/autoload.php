@@ -1,12 +1,13 @@
 <?php
 
 /**
- * Contao Open Source CMS
+ * ce_section
  *
- * Copyright (c) 2005-2013 Leo Feyer
+ * Copyright (C) 2013-2015 Andreas Nölke
  *
- * @package Core
- * @link    https://contao.org
+ * @package   ce_section
+ * @author    Andreas Nölke
+ * @copyright Andreas Nölke
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
