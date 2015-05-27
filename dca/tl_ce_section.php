@@ -22,7 +22,14 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 	(
 		'dataContainer'               => 'Table',
 		'ptable'                      => 'tl_theme',
-		'enableVersioning'            => true
+		'enableVersioning'            => true,
+		'sql' => array
+		(
+			'keys' => array
+			(
+				'id' => 'primary'
+			)
+		)
 	),
 
 	// List
@@ -97,6 +104,20 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 	// Fields
 	'fields' => array
 	(
+		'id' => array
+		(
+			'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+		),
+		'pid' => array
+		(
+			'foreignKey'              => 'tl_theme.name',
+			'sql'                     => "int(10) unsigned NOT NULL default '0'",
+			'relation'                => array('type'=>'belongsTo', 'load'=>'lazy')
+		),
+		'tstamp' => array
+		(
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
+		),
 		'section' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_ce_section']['section'],
@@ -105,7 +126,8 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 			'options_callback'        => array('tl_ce_section', 'getSections'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_article'],
 			'eval'					  => array('chosen'=>true),
-			'save_callback'			  => array(array('tl_ce_section', 'checkUniqueSection'))
+			'save_callback'			  => array(array('tl_ce_section', 'checkUniqueSection')),
+			'sql'                     => "varchar(64) NOT NULL default ''"
 		),
 		'contentElement' => array
 		(
@@ -113,7 +135,8 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 			'inputType'               => 'checkbox',
 			'options_callback'        => array('tl_ce_section', 'getContentElements'),
 			'reference'               => &$GLOBALS['TL_LANG']['CTE'],
-			'eval'                    => array('multiple'=>true)
+			'eval'                    => array('multiple'=>true),
+			'sql'                     => "blob NULL"
 		),
 		'articleTpl' => array
 		(
@@ -127,7 +150,8 @@ $GLOBALS['TL_DCA']['tl_ce_section'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_ce_section']['invisible'],
 			'filter'                  => true,
-			'inputType'               => 'checkbox'
+			'inputType'               => 'checkbox',
+			'sql'                     => "char(1) NOT NULL default ''"
 		)
 	)
 );
