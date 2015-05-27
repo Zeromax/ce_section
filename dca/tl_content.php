@@ -22,6 +22,12 @@ $GLOBALS['TL_DCA']['tl_content']['config']['onload_callback'][] = array('tl_cont
  */
 class tl_content_ce_section extends tl_content
 {
+
+	/**
+	 * load callback fot tl_content
+	 *
+	 * @param \DataContainer $objTable
+	 */
 	function loadCallback($objTable)
 	{
 		$objCte = $this->Database->prepare("SELECT pid FROM tl_content WHERE id=?")
@@ -57,14 +63,7 @@ class tl_content_ce_section extends tl_content
 			}
 			while ($pid > 0 && $type != 'root');
 
-			if (version_compare(VERSION, '2.11', '>'))
-			{
-				$themePid = $this->getThemePidC3($objPage);
-			}
-			else
-			{
-				$themePid = $this->getThemePidC2($objPage);
-			}
+			$themePid = $this->getThemePid($objPage);
 			$objSection = $this->Database->prepare("SELECT * FROM tl_ce_section WHERE section=? AND pid=?")
 										 ->limit(1)
 										 ->executeUncached($objArticle->inColumn,$themePid);
@@ -93,26 +92,14 @@ class tl_content_ce_section extends tl_content
 		}
 	}
 
-	protected function getThemePidC2($objPage)
-	{
-		$objLayout = $this->Database->prepare("SELECT l.*, t.templates FROM tl_layout l LEFT JOIN tl_theme t ON l.pid=t.id WHERE l.id=? OR l.fallback=1 ORDER BY l.id=? DESC")
-									->limit(1)
-									->execute($objPage->layout, $objPage->layout);
-		if($objLayout === null)
-		{
-			return 0;
-		}
-		else
-		{
-			return $objLayout->pid;
-		}
-	}
 	/**
 	 * Get a page layout and return it as database result object
-	 * @param \Model
-	 * @return \Model
+	 *
+	 * @param \PageModel $objPage
+	 *
+	 * @return int
 	 */
-	protected function getThemePidC3($objPage)
+	protected function getThemePid($objPage)
 	{
 		$objLayout = \LayoutModel::findByPk($objPage->layout);
 
