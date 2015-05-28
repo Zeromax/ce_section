@@ -17,3 +17,5 @@ Create a section and choose the content elements you want to enable for this sec
 
 ## Test your selection
 Just navigate to an article with the created section name from above and create a content element. You only see the content element you have allowed.
+
+![first setup](http://brothers-project.de/tl_files/github/ce_section/03_example.png)
