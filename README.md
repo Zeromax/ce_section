@@ -1,3 +1,6 @@
+[![Version](http://img.shields.io/packagist/v/zeromax/contao-ce-section.svg?style=flat-square)](http://packagist.com/packages/zeromax/contao-ce-section)
+[![License](http://img.shields.io/packagist/l/zeromax/contao-ce-section.svg?style=flat-square)](http://packagist.com/packages/zeromax/contao-ce-section)
+
 # ce_section
 
 This is a Contao CMS extension. It is only in use for the back end.
